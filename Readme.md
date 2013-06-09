@@ -39,7 +39,8 @@ Indexes:
 Instructions
 ========
 
-It is available on Dropbox at [neo_doc_v1.tar.gz](https://dl.dropboxusercontent.com/u/57740873/neo_doc_v1.tar.gz).
+It is available as a [neo_doc_v1.tar.gz.torrent](https://raw.github.com/maxdemarzi/neo_doc/master/neo_doc_v1.tar.gz.torrent)
+or on Dropbox at [neo_doc_v1.tar.gz](https://dl.dropboxusercontent.com/u/57740873/neo_doc_v1.tar.gz).
 
 It contains a graph.db directory that goes in neo4j/data/.
 
