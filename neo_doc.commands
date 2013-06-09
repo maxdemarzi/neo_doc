@@ -1,0 +1,645 @@
+
+-- Download NPI data:
+http://www.cms.gov/Regulations-and-Guidance/HIPAA-Administrative-Simplification/NationalProvIdentStand/downloads/Data_Dissemination_File-Readme.pdf
+
+-- Clean Headers:
+split -b 53750k npidata_20050523-20130512.csv
+sed -e 's/ (If outside U.S.)//g' xaa > xaa
+cat x* > mod_npidata_20050523-20130512.csv
+
+-- Connect to Postgres
+psql -p 5432 -h localhost
+
+create database doc;
+\connect doc
+
+CREATE TABLE doc (
+"NPI"	varchar(255),
+"Entity Type Code"	varchar(255),
+"Replacement NPI"	varchar(255),
+"Employer Identification Number (EIN)"	varchar(255),
+"Provider Organization Name (Legal Business Name)"	varchar(255),
+"Provider Last Name (Legal Name)"	varchar(255),
+"Provider First Name"	varchar(255),
+"Provider Middle Name"	varchar(255),
+"Provider Name Prefix Text"	varchar(255),
+"Provider Name Suffix Text"	varchar(255),
+"Provider Credential Text"	varchar(255),
+"Provider Other Organization Name"	varchar(255),
+"Provider Other Organization Name Type Code"	varchar(255),
+"Provider Other Last Name"	varchar(255),
+"Provider Other First Name"	varchar(255),
+"Provider Other Middle Name"	varchar(255),
+"Provider Other Name Prefix Text"	varchar(255),
+"Provider Other Name Suffix Text"	varchar(255),
+"Provider Other Credential Text"	varchar(255),
+"Provider Other Last Name Type Code"	varchar(255),
+"Provider First Line Business Mailing Address"	varchar(255),
+"Provider Second Line Business Mailing Address"	varchar(255),
+"Provider Business Mailing Address City Name"	varchar(255),
+"Provider Business Mailing Address State Name"	varchar(255),
+"Provider Business Mailing Address Postal Code"	varchar(255),
+"Provider Business Mailing Address Country Code"	varchar(255),
+"Provider Business Mailing Address Telephone Number"	varchar(255),
+"Provider Business Mailing Address Fax Number"	varchar(255),
+"Provider First Line Business Practice Location Address"	varchar(255),
+"Provider Second Line Business Practice Location Address"	varchar(255),
+"Provider Business Practice Location Address City Name"	varchar(255),
+"Provider Business Practice Location Address State Name"	varchar(255),
+"Provider Business Practice Location Address Postal Code"	varchar(255),
+"Provider Business Practice Location Address Country Code"	varchar(255),
+"Provider Business Practice Location Address Telephone Number"	varchar(255),
+"Provider Business Practice Location Address Fax Number"	varchar(255),
+"Provider Enumeration Date"	varchar(255),
+"Last Update Date"	varchar(255),
+"NPI Deactivation Reason Code"	varchar(255),
+"NPI Deactivation Date"	varchar(255),
+"NPI Reactivation Date"	varchar(255),
+"Provider Gender Code"	varchar(255),
+"Authorized Official Last Name"	varchar(255),
+"Authorized Official First Name"	varchar(255),
+"Authorized Official Middle Name"	varchar(255),
+"Authorized Official Title or Position"	varchar(255),
+"Authorized Official Telephone Number"	varchar(255),
+"Healthcare Provider Taxonomy Code_1"	varchar(255),
+"Provider License Number_1"	varchar(255),
+"Provider License Number State Code_1"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_1"	varchar(255),
+"Healthcare Provider Taxonomy Code_2"	varchar(255),
+"Provider License Number_2"	varchar(255),
+"Provider License Number State Code_2"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_2"	varchar(255),
+"Healthcare Provider Taxonomy Code_3"	varchar(255),
+"Provider License Number_3"	varchar(255),
+"Provider License Number State Code_3"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_3"	varchar(255),
+"Healthcare Provider Taxonomy Code_4"	varchar(255),
+"Provider License Number_4"	varchar(255),
+"Provider License Number State Code_4"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_4"	varchar(255),
+"Healthcare Provider Taxonomy Code_5"	varchar(255),
+"Provider License Number_5"	varchar(255),
+"Provider License Number State Code_5"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_5"	varchar(255),
+"Healthcare Provider Taxonomy Code_6"	varchar(255),
+"Provider License Number_6"	varchar(255),
+"Provider License Number State Code_6"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_6"	varchar(255),
+"Healthcare Provider Taxonomy Code_7"	varchar(255),
+"Provider License Number_7"	varchar(255),
+"Provider License Number State Code_7"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_7"	varchar(255),
+"Healthcare Provider Taxonomy Code_8"	varchar(255),
+"Provider License Number_8"	varchar(255),
+"Provider License Number State Code_8"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_8"	varchar(255),
+"Healthcare Provider Taxonomy Code_9"	varchar(255),
+"Provider License Number_9"	varchar(255),
+"Provider License Number State Code_9"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_9"	varchar(255),
+"Healthcare Provider Taxonomy Code_10"	varchar(255),
+"Provider License Number_10"	varchar(255),
+"Provider License Number State Code_10"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_10"	varchar(255),
+"Healthcare Provider Taxonomy Code_11"	varchar(255),
+"Provider License Number_11"	varchar(255),
+"Provider License Number State Code_11"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_11"	varchar(255),
+"Healthcare Provider Taxonomy Code_12"	varchar(255),
+"Provider License Number_12"	varchar(255),
+"Provider License Number State Code_12"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_12"	varchar(255),
+"Healthcare Provider Taxonomy Code_13"	varchar(255),
+"Provider License Number_13"	varchar(255),
+"Provider License Number State Code_13"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_13"	varchar(255),
+"Healthcare Provider Taxonomy Code_14"	varchar(255),
+"Provider License Number_14"	varchar(255),
+"Provider License Number State Code_14"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_14"	varchar(255),
+"Healthcare Provider Taxonomy Code_15"	varchar(255),
+"Provider License Number_15"	varchar(255),
+"Provider License Number State Code_15"	varchar(255),
+"Healthcare Provider Primary Taxonomy Switch_15"	varchar(255),
+"Other Provider Identifier_1"	varchar(255),
+"Other Provider Identifier Type Code_1"	varchar(255),
+"Other Provider Identifier State_1"	varchar(255),
+"Other Provider Identifier Issuer_1"	varchar(255),
+"Other Provider Identifier_2"	varchar(255),
+"Other Provider Identifier Type Code_2"	varchar(255),
+"Other Provider Identifier State_2"	varchar(255),
+"Other Provider Identifier Issuer_2"	varchar(255),
+"Other Provider Identifier_3"	varchar(255),
+"Other Provider Identifier Type Code_3"	varchar(255),
+"Other Provider Identifier State_3"	varchar(255),
+"Other Provider Identifier Issuer_3"	varchar(255),
+"Other Provider Identifier_4"	varchar(255),
+"Other Provider Identifier Type Code_4"	varchar(255),
+"Other Provider Identifier State_4"	varchar(255),
+"Other Provider Identifier Issuer_4"	varchar(255),
+"Other Provider Identifier_5"	varchar(255),
+"Other Provider Identifier Type Code_5"	varchar(255),
+"Other Provider Identifier State_5"	varchar(255),
+"Other Provider Identifier Issuer_5"	varchar(255),
+"Other Provider Identifier_6"	varchar(255),
+"Other Provider Identifier Type Code_6"	varchar(255),
+"Other Provider Identifier State_6"	varchar(255),
+"Other Provider Identifier Issuer_6"	varchar(255),
+"Other Provider Identifier_7"	varchar(255),
+"Other Provider Identifier Type Code_7"	varchar(255),
+"Other Provider Identifier State_7"	varchar(255),
+"Other Provider Identifier Issuer_7"	varchar(255),
+"Other Provider Identifier_8"	varchar(255),
+"Other Provider Identifier Type Code_8"	varchar(255),
+"Other Provider Identifier State_8"	varchar(255),
+"Other Provider Identifier Issuer_8"	varchar(255),
+"Other Provider Identifier_9"	varchar(255),
+"Other Provider Identifier Type Code_9"	varchar(255),
+"Other Provider Identifier State_9"	varchar(255),
+"Other Provider Identifier Issuer_9"	varchar(255),
+"Other Provider Identifier_10"	varchar(255),
+"Other Provider Identifier Type Code_10"	varchar(255),
+"Other Provider Identifier State_10"	varchar(255),
+"Other Provider Identifier Issuer_10"	varchar(255),
+"Other Provider Identifier_11"	varchar(255),
+"Other Provider Identifier Type Code_11"	varchar(255),
+"Other Provider Identifier State_11"	varchar(255),
+"Other Provider Identifier Issuer_11"	varchar(255),
+"Other Provider Identifier_12"	varchar(255),
+"Other Provider Identifier Type Code_12"	varchar(255),
+"Other Provider Identifier State_12"	varchar(255),
+"Other Provider Identifier Issuer_12"	varchar(255),
+"Other Provider Identifier_13"	varchar(255),
+"Other Provider Identifier Type Code_13"	varchar(255),
+"Other Provider Identifier State_13"	varchar(255),
+"Other Provider Identifier Issuer_13"	varchar(255),
+"Other Provider Identifier_14"	varchar(255),
+"Other Provider Identifier Type Code_14"	varchar(255),
+"Other Provider Identifier State_14"	varchar(255),
+"Other Provider Identifier Issuer_14"	varchar(255),
+"Other Provider Identifier_15"	varchar(255),
+"Other Provider Identifier Type Code_15"	varchar(255),
+"Other Provider Identifier State_15"	varchar(255),
+"Other Provider Identifier Issuer_15"	varchar(255),
+"Other Provider Identifier_16"	varchar(255),
+"Other Provider Identifier Type Code_16"	varchar(255),
+"Other Provider Identifier State_16"	varchar(255),
+"Other Provider Identifier Issuer_16"	varchar(255),
+"Other Provider Identifier_17"	varchar(255),
+"Other Provider Identifier Type Code_17"	varchar(255),
+"Other Provider Identifier State_17"	varchar(255),
+"Other Provider Identifier Issuer_17"	varchar(255),
+"Other Provider Identifier_18"	varchar(255),
+"Other Provider Identifier Type Code_18"	varchar(255),
+"Other Provider Identifier State_18"	varchar(255),
+"Other Provider Identifier Issuer_18"	varchar(255),
+"Other Provider Identifier_19"	varchar(255),
+"Other Provider Identifier Type Code_19"	varchar(255),
+"Other Provider Identifier State_19"	varchar(255),
+"Other Provider Identifier Issuer_19"	varchar(255),
+"Other Provider Identifier_20"	varchar(255),
+"Other Provider Identifier Type Code_20"	varchar(255),
+"Other Provider Identifier State_20"	varchar(255),
+"Other Provider Identifier Issuer_20"	varchar(255),
+"Other Provider Identifier_21"	varchar(255),
+"Other Provider Identifier Type Code_21"	varchar(255),
+"Other Provider Identifier State_21"	varchar(255),
+"Other Provider Identifier Issuer_21"	varchar(255),
+"Other Provider Identifier_22"	varchar(255),
+"Other Provider Identifier Type Code_22"	varchar(255),
+"Other Provider Identifier State_22"	varchar(255),
+"Other Provider Identifier Issuer_22"	varchar(255),
+"Other Provider Identifier_23"	varchar(255),
+"Other Provider Identifier Type Code_23"	varchar(255),
+"Other Provider Identifier State_23"	varchar(255),
+"Other Provider Identifier Issuer_23"	varchar(255),
+"Other Provider Identifier_24"	varchar(255),
+"Other Provider Identifier Type Code_24"	varchar(255),
+"Other Provider Identifier State_24"	varchar(255),
+"Other Provider Identifier Issuer_24"	varchar(255),
+"Other Provider Identifier_25"	varchar(255),
+"Other Provider Identifier Type Code_25"	varchar(255),
+"Other Provider Identifier State_25"	varchar(255),
+"Other Provider Identifier Issuer_25"	varchar(255),
+"Other Provider Identifier_26"	varchar(255),
+"Other Provider Identifier Type Code_26"	varchar(255),
+"Other Provider Identifier State_26"	varchar(255),
+"Other Provider Identifier Issuer_26"	varchar(255),
+"Other Provider Identifier_27"	varchar(255),
+"Other Provider Identifier Type Code_27"	varchar(255),
+"Other Provider Identifier State_27"	varchar(255),
+"Other Provider Identifier Issuer_27"	varchar(255),
+"Other Provider Identifier_28"	varchar(255),
+"Other Provider Identifier Type Code_28"	varchar(255),
+"Other Provider Identifier State_28"	varchar(255),
+"Other Provider Identifier Issuer_28"	varchar(255),
+"Other Provider Identifier_29"	varchar(255),
+"Other Provider Identifier Type Code_29"	varchar(255),
+"Other Provider Identifier State_29"	varchar(255),
+"Other Provider Identifier Issuer_29"	varchar(255),
+"Other Provider Identifier_30"	varchar(255),
+"Other Provider Identifier Type Code_30"	varchar(255),
+"Other Provider Identifier State_30"	varchar(255),
+"Other Provider Identifier Issuer_30"	varchar(255),
+"Other Provider Identifier_31"	varchar(255),
+"Other Provider Identifier Type Code_31"	varchar(255),
+"Other Provider Identifier State_31"	varchar(255),
+"Other Provider Identifier Issuer_31"	varchar(255),
+"Other Provider Identifier_32"	varchar(255),
+"Other Provider Identifier Type Code_32"	varchar(255),
+"Other Provider Identifier State_32"	varchar(255),
+"Other Provider Identifier Issuer_32"	varchar(255),
+"Other Provider Identifier_33"	varchar(255),
+"Other Provider Identifier Type Code_33"	varchar(255),
+"Other Provider Identifier State_33"	varchar(255),
+"Other Provider Identifier Issuer_33"	varchar(255),
+"Other Provider Identifier_34"	varchar(255),
+"Other Provider Identifier Type Code_34"	varchar(255),
+"Other Provider Identifier State_34"	varchar(255),
+"Other Provider Identifier Issuer_34"	varchar(255),
+"Other Provider Identifier_35"	varchar(255),
+"Other Provider Identifier Type Code_35"	varchar(255),
+"Other Provider Identifier State_35"	varchar(255),
+"Other Provider Identifier Issuer_35"	varchar(255),
+"Other Provider Identifier_36"	varchar(255),
+"Other Provider Identifier Type Code_36"	varchar(255),
+"Other Provider Identifier State_36"	varchar(255),
+"Other Provider Identifier Issuer_36"	varchar(255),
+"Other Provider Identifier_37"	varchar(255),
+"Other Provider Identifier Type Code_37"	varchar(255),
+"Other Provider Identifier State_37"	varchar(255),
+"Other Provider Identifier Issuer_37"	varchar(255),
+"Other Provider Identifier_38"	varchar(255),
+"Other Provider Identifier Type Code_38"	varchar(255),
+"Other Provider Identifier State_38"	varchar(255),
+"Other Provider Identifier Issuer_38"	varchar(255),
+"Other Provider Identifier_39"	varchar(255),
+"Other Provider Identifier Type Code_39"	varchar(255),
+"Other Provider Identifier State_39"	varchar(255),
+"Other Provider Identifier Issuer_39"	varchar(255),
+"Other Provider Identifier_40"	varchar(255),
+"Other Provider Identifier Type Code_40"	varchar(255),
+"Other Provider Identifier State_40"	varchar(255),
+"Other Provider Identifier Issuer_40"	varchar(255),
+"Other Provider Identifier_41"	varchar(255),
+"Other Provider Identifier Type Code_41"	varchar(255),
+"Other Provider Identifier State_41"	varchar(255),
+"Other Provider Identifier Issuer_41"	varchar(255),
+"Other Provider Identifier_42"	varchar(255),
+"Other Provider Identifier Type Code_42"	varchar(255),
+"Other Provider Identifier State_42"	varchar(255),
+"Other Provider Identifier Issuer_42"	varchar(255),
+"Other Provider Identifier_43"	varchar(255),
+"Other Provider Identifier Type Code_43"	varchar(255),
+"Other Provider Identifier State_43"	varchar(255),
+"Other Provider Identifier Issuer_43"	varchar(255),
+"Other Provider Identifier_44"	varchar(255),
+"Other Provider Identifier Type Code_44"	varchar(255),
+"Other Provider Identifier State_44"	varchar(255),
+"Other Provider Identifier Issuer_44"	varchar(255),
+"Other Provider Identifier_45"	varchar(255),
+"Other Provider Identifier Type Code_45"	varchar(255),
+"Other Provider Identifier State_45"	varchar(255),
+"Other Provider Identifier Issuer_45"	varchar(255),
+"Other Provider Identifier_46"	varchar(255),
+"Other Provider Identifier Type Code_46"	varchar(255),
+"Other Provider Identifier State_46"	varchar(255),
+"Other Provider Identifier Issuer_46"	varchar(255),
+"Other Provider Identifier_47"	varchar(255),
+"Other Provider Identifier Type Code_47"	varchar(255),
+"Other Provider Identifier State_47"	varchar(255),
+"Other Provider Identifier Issuer_47"	varchar(255),
+"Other Provider Identifier_48"	varchar(255),
+"Other Provider Identifier Type Code_48"	varchar(255),
+"Other Provider Identifier State_48"	varchar(255),
+"Other Provider Identifier Issuer_48"	varchar(255),
+"Other Provider Identifier_49"	varchar(255),
+"Other Provider Identifier Type Code_49"	varchar(255),
+"Other Provider Identifier State_49"	varchar(255),
+"Other Provider Identifier Issuer_49"	varchar(255),
+"Other Provider Identifier_50"	varchar(255),
+"Other Provider Identifier Type Code_50"	varchar(255),
+"Other Provider Identifier State_50"	varchar(255),
+"Other Provider Identifier Issuer_50"	varchar(255),
+"Is Sole Proprietor"	varchar(255),
+"Is Organization Subpart"	varchar(255),
+"Parent Organization LBN"	varchar(255),
+"Parent Organization TIN"	varchar(255),
+"Authorized Official Name Prefix Text"	varchar(255),
+"Authorized Official Name Suffix Text"	varchar(255),
+"Authorized Official Credential Text"	varchar(255),
+"Healthcare Provider Taxonomy Group_1"	varchar(255),
+"Healthcare Provider Taxonomy Group_2"	varchar(255),
+"Healthcare Provider Taxonomy Group_3"	varchar(255),
+"Healthcare Provider Taxonomy Group_4"	varchar(255),
+"Healthcare Provider Taxonomy Group_5"	varchar(255),
+"Healthcare Provider Taxonomy Group_6"	varchar(255),
+"Healthcare Provider Taxonomy Group_7"	varchar(255),
+"Healthcare Provider Taxonomy Group_8"	varchar(255),
+"Healthcare Provider Taxonomy Group_9"	varchar(255),
+"Healthcare Provider Taxonomy Group_10"	varchar(255),
+"Healthcare Provider Taxonomy Group_11"	varchar(255),
+"Healthcare Provider Taxonomy Group_12"	varchar(255),
+"Healthcare Provider Taxonomy Group_13"	varchar(255),
+"Healthcare Provider Taxonomy Group_14"	varchar(255),
+"Healthcare Provider Taxonomy Group_15"	varchar(255)
+);
+
+-- Import Data
+COPY doc FROM '/Users/maxdemarzi/Projects/neo_doc/NPPES_Data_Dissemination/mod_npidata_20050523-20130512.csv' DELIMITERS ',' CSV HEADER
+
+-- Create Nodes, Relationships and Indexes for Neo4j
+
+UPDATE doc SET "Entity Type Code" = 'Individual' WHERE "Entity Type Code" = '1';
+UPDATE doc SET "Entity Type Code" = 'Organization' WHERE "Entity Type Code" = '2';
+
+-----------------
+--Organizations--
+-----------------
+
+SELECT row_number() OVER (ORDER BY "Parent Organization LBN") AS node_id, 
+       "Parent Organization LBN" AS name
+INTO organization_nodes
+FROM doc 
+WHERE "Parent Organization LBN" <> ''
+GROUP BY "Parent Organization LBN"
+ORDER BY "Parent Organization LBN";
+
+CREATE UNIQUE INDEX organizations_name_idx ON organization_nodes (name);
+
+--------------
+--Taxonomies--
+--------------
+SELECT max(node_id) FROM organization_nodes;
+--24642
+
+CREATE TABLE taxonomies (
+"Code"	varchar(255),
+"Type"	varchar(255),
+"Classification"	varchar(255),
+"Specialization"	varchar(255),
+"Definition"	text,
+"Notes"	text
+);
+
+SET client_encoding='LATIN1';
+COPY taxonomies FROM '/Users/maxdemarzi/Projects/neo_doc/nucc_taxonomy_130.csv' DELIMITERS ',' CSV HEADER
+
+SELECT 24642 + row_number() OVER (ORDER BY "Code") AS node_id, 
+       "Code" AS code,
+       "Type" AS type,
+       COALESCE("Specialization", "Classification") AS name
+INTO taxonomy_nodes
+FROM taxonomies 
+ORDER BY "Code";
+
+CREATE UNIQUE INDEX taxonomies_code_idx ON taxonomy_nodes (code);
+
+-------------
+--Providers--
+-------------
+SELECT max(node_id) FROM taxonomy_nodes;
+--25471
+
+CREATE UNIQUE INDEX doc_npi_idx ON doc ("NPI");
+ 
+SELECT 25471 + row_number() OVER (ORDER BY "NPI") AS node_id,
+       "NPI" AS npi,
+       "Entity Type Code" AS entity_type,
+	   "Provider First Line Business Practice Location Address"	AS address_first_line,
+	   "Provider Second Line Business Practice Location Address" AS address_second_line,
+	   "Provider Business Practice Location Address City Name" AS address_city_name,
+	   "Provider Business Practice Location Address State Name" AS address_state_name,
+	   "Provider Business Practice Location Address Postal Code" AS address_postal_code,
+	   "Provider Business Practice Location Address Country Code" AS address_country_code,
+	   "Provider Business Practice Location Address Telephone Number" AS telephone_number,
+	   "Provider Business Practice Location Address Fax Number" AS fax_number,
+       "Provider Gender Code" AS gender,
+        CASE "Entity Type Code"
+          WHEN 'Organization' THEN "Provider Organization Name (Legal Business Name)"
+          ELSE REPLACE(array_to_string( ARRAY["Provider Name Prefix Text",
+                                              "Provider First Name", 
+                                              "Provider Middle Name", 
+                                              "Provider Last Name (Legal Name)", 
+                                              "Provider Name Suffix Text", 
+                                              "Provider Credential Text"], ' ', ''),
+                                          '  ', ' ')
+        END AS name
+INTO provider_nodes
+FROM doc 
+ORDER BY "NPI";
+
+CREATE UNIQUE INDEX provider_npi_idx ON provider_nodes (npi);
+CREATE INDEX provider_loc_idx ON provider_nodes (address_city_name, address_state_name, address_country_code);
+CREATE INDEX provider_zip_idx ON provider_nodes (address_postal_code);
+
+-------------
+--Locations--
+-------------
+SELECT max(node_id) FROM provider_nodes;
+--4024021
+
+SELECT 4024021 + row_number() OVER (ORDER BY address_city_name, address_state_name, address_country_code, COUNT(*) DESC) AS node_id,
+       address_city_name, address_state_name, address_country_code
+INTO location_nodes
+FROM provider_nodes
+GROUP BY address_city_name, address_state_name, address_country_code
+ORDER BY address_city_name, address_state_name, address_country_code, COUNT(*) DESC;
+
+CREATE INDEX location_loc_idx ON location_nodes (address_city_name, address_state_name, address_country_code);
+
+SELECT max(node_id) FROM location_nodes;
+--4057232
+
+---------------------------------------------------------------------------------------------------------
+-------------------------------------------Relationships-------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+-------------
+--PARENT_OF--
+-------------
+
+CREATE INDEX doc_parent_idx ON doc ("Parent Organization LBN");
+
+SELECT O.node_id  AS start, P.node_id AS end, 'PARENT_OF' AS type
+INTO parent_of_rels
+FROM doc AS D
+INNER JOIN organization_nodes AS O ON O.name = D."Parent Organization LBN"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+ORDER BY O.node_id, P.node_id;
+
+-------------
+--SPECIALTY--
+-------------
+
+CREATE INDEX doc_tax_1_idx ON doc ("Healthcare Provider Taxonomy Code_1");
+CREATE INDEX doc_tax_2_idx ON doc ("Healthcare Provider Taxonomy Code_2");
+CREATE INDEX doc_tax_3_idx ON doc ("Healthcare Provider Taxonomy Code_3");
+CREATE INDEX doc_tax_4_idx ON doc ("Healthcare Provider Taxonomy Code_4");
+CREATE INDEX doc_tax_5_idx ON doc ("Healthcare Provider Taxonomy Code_5");
+CREATE INDEX doc_tax_6_idx ON doc ("Healthcare Provider Taxonomy Code_6");
+CREATE INDEX doc_tax_7_idx ON doc ("Healthcare Provider Taxonomy Code_7");
+CREATE INDEX doc_tax_8_idx ON doc ("Healthcare Provider Taxonomy Code_8");
+CREATE INDEX doc_tax_9_idx ON doc ("Healthcare Provider Taxonomy Code_9");
+CREATE INDEX doc_tax_10_idx ON doc ("Healthcare Provider Taxonomy Code_10");
+CREATE INDEX doc_tax_11_idx ON doc ("Healthcare Provider Taxonomy Code_11");
+CREATE INDEX doc_tax_12_idx ON doc ("Healthcare Provider Taxonomy Code_12");
+CREATE INDEX doc_tax_13_idx ON doc ("Healthcare Provider Taxonomy Code_13");
+CREATE INDEX doc_tax_14_idx ON doc ("Healthcare Provider Taxonomy Code_14");
+CREATE INDEX doc_tax_15_idx ON doc ("Healthcare Provider Taxonomy Code_15");
+
+CREATE TABLE specialty_rels (
+start bigint,
+"end" bigint,
+type varchar(10)
+);
+
+INSERT INTO specialty_rels(start, "end", type)
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_1"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_2"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_3"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_4"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_5"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_6"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_7"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_8"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_9"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_10"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_11"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_12"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_13"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_14"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+UNION
+SELECT T.node_id AS start, P.node_id AS end, 'SPECIALTY' AS type
+FROM doc AS D
+INNER JOIN taxonomy_nodes AS T ON T.code = D."Healthcare Provider Taxonomy Code_15"
+INNER JOIN provider_nodes AS P ON P.npi = D."NPI"
+ORDER BY start, "end";
+
+--------------
+--LOCATED_IN--
+--------------
+
+SELECT P.node_id  AS start, L.node_id AS end, 'LOCATED_IN' AS type
+INTO located_in_rels
+FROM provider_nodes AS P
+INNER JOIN location_nodes AS L ON 
+P.address_city_name = L.address_city_name AND 
+P.address_state_name = L.address_state_name AND 
+P.address_country_code = L.address_country_code
+ORDER BY P.node_id, L.node_id;
+
+------------
+--REFERRED--
+------------
+
+
+CREATE TABLE referred (
+"from"	varchar(25),
+"to"	varchar(25),
+"count"	int
+);
+
+-- Download teaming file:
+See: https://github.com/ftrotter/DocGraph
+
+
+COPY referred FROM '/Users/maxdemarzi/Projects/neo_doc/teaming.v1.2011.csv' DELIMITERS ',';
+
+CREATE INDEX referred_from_idx ON referred ("from");
+CREATE INDEX referred_to_idx ON referred ("to");
+
+SELECT P1.node_id  AS start, P2.node_id AS end, 'REFERRED' AS type, r.count AS times
+INTO referred_rels
+FROM referred AS r
+INNER JOIN provider_nodes AS P1 ON P1.npi = r.from
+INNER JOIN provider_nodes AS P2 ON P2.npi = r.to
+ORDER BY P1.node_id, P2.node_id;
+
+
+---------------------------------------------------------------------------------------------------------
+-------------------------------------------Import to Neo-------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+psql -c "copy ((SELECT name, null AS code, null AS type, null AS address_city_name, null AS address_state_name, null AS address_country_code, null AS address_first_line, null AS address_second_line, null AS address_postal_code, null AS telephone_number, null AS fax_number, null AS npi FROM organization_nodes ORDER BY node_id) UNION ALL 
+	           (SELECT name, code, type, null AS address_city_name, null AS address_state_name, null AS address_country_code, null AS address_first_line, null AS address_second_line, null AS address_postal_code, null AS telephone_number, null AS fax_number, null AS npi FROM taxonomy_nodes ORDER BY node_id)  UNION ALL
+	           (SELECT name, null AS code, entity_type, address_city_name, address_state_name, address_country_code, address_first_line, address_second_line, address_postal_code, telephone_number, fax_number, npi FROM provider_nodes ORDER BY node_id)  UNION ALL
+	           (SELECT null AS name, null AS code, null AS type, address_city_name, address_state_name, address_country_code, null AS address_first_line, null AS address_second_line, null AS address_postal_code, null AS telephone_number, null AS fax_number, null AS npi FROM location_nodes ORDER BY node_id) 	
+               ) TO stdout csv header delimiter E'\t'" -o docnodes.csv -d doc
+
+psql -c "copy (SELECT start, \"end\", type::VARCHAR, null::INTEGER AS times FROM parent_of_rels UNION ALL 
+	           SELECT start, \"end\", type::VARCHAR, null::INTEGER AS times FROM specialty_rels UNION ALL 
+               SELECT start, \"end\", type::VARCHAR, null::INTEGER AS times FROM located_in_rels UNION ALL 
+               SELECT start, \"end\", type::VARCHAR, times FROM referred_rels
+	           ORDER BY start, \"end\") TO stdout csv header delimiter E'\t'" -o docrels.csv -d doc
+
+psql -c "copy (SELECT node_id AS id, name FROM organization_nodes ORDER BY node_id 
+	           ) TO stdout csv header delimiter E'\t'" -o orgindex.csv -d doc
+
+psql -c "copy (SELECT node_id AS id, name, code FROM taxonomy_nodes ORDER BY node_id
+	           ) TO stdout csv header delimiter E'\t'" -o specialtyindex.csv -d doc
+
+psql -c "copy (SELECT node_id AS id, name, address_postal_code, telephone_number, npi FROM provider_nodes ORDER BY node_id 
+	           ) TO stdout csv header delimiter E'\t'" -o providerindex.csv -d doc
+
+psql -c "copy (SELECT node_id AS id, address_city_name, address_state_name, address_country_code FROM location_nodes ORDER BY node_id 
+	           ) TO stdout csv header delimiter E'\t'" -o locationindex.csv -d doc
+
+
+java -server -Xmx4G -jar ../batch-import/target/batch-import-jar-with-dependencies.jar neo4j/data/graph.db docnodes.csv docrels.csv node_index Organization fulltext orgindex.csv node_index Specialty fulltext specialtyindex.csv node_index Provider fulltext providerindex.csv node_index Location fulltext locationindex.csv 
+
