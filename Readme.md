@@ -7,33 +7,33 @@ This repository contains a Neo4j graph database of <a href='http://docgraph.org'
 Database
 ========
 
-Organizations -[:PARENT_OF] - Providers -[:SPECIALTY]- Specialties
-Providers -[:LOCATED_IN]-Locations
+* Organizations -[:PARENT_OF] - Providers -[:SPECIALTY]- Specialties
+* Providers -[:LOCATED_IN]-Locations
 
 Nodes:
 --------
 
-Organizations
-Specialties
-Providers
-Locations
+* Organizations - Fields: name
+* Specialties - Fields: name, code
+* Providers - Fields: name, npi, type, address_first_line, address_second_line, address_city_name, address_state_name, address_postal_code, address_country_code, telephone_number, fax_number
+* Locations - address_city_name, address_state_name, address_country_code
 
 Edges:
 --------
 
-PARENT_OF - Between Providers and Organizations
-SPECIALTY - Between Providers and Specialties
-LOCATED_IN - Between Providers and Locations
-REFERRED - Between Providers, Fields: times
+* PARENT_OF - Between Providers and Organizations
+* SPECIALTY - Between Providers and Specialties
+* LOCATED_IN - Between Providers and Locations
+* REFERRED - Between Providers, Fields: times
 
 
 Indexes:
 --------
 
-Organization - Fields: name
-Specialty - Fields: name, code
-Provider - Fields: name, address_postal_code, telephone_number, npi
-Location - Fields: address_city_name, address_state_name, address_country_code
+* Organization - Fields: name
+* Specialty - Fields: name, code
+* Provider - Fields: name, address_postal_code, telephone_number, npi
+* Location - Fields: address_city_name, address_state_name, address_country_code
 
 
 Instructions
