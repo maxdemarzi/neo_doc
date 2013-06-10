@@ -9,6 +9,7 @@ Database
 
 * Organizations -[:PARENT_OF] - Providers -[:SPECIALTY]- Specialties
 * Providers -[:LOCATED_IN]-Locations
+* Providers -[:REFERRED]-Providers
 
 Nodes:
 --------
